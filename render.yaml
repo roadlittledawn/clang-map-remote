@@ -1,0 +1,15 @@
+# Render Blueprint specification
+# https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: health-dashboard-mcp
+    runtime: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: API_BASE_URL
+        sync: false  # Set manually in Render dashboard
+      - key: API_TOKEN
+        sync: false  # Set manually in Render dashboard (sensitive)
+    healthCheckPath: /health
