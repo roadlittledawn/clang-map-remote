@@ -7,7 +7,7 @@ export function registerQueryWorkoutsTool(server: McpServer): void {
     "query_workouts",
     {
       title: "Query Workouts",
-      description: "Query workout data from Strava with filtering options. Use this to find specific workouts, analyze training patterns, or get workout statistics.",
+      description: "Query workout data from Strava with filtering options. Use this to find specific workouts, analyze training patterns, or get workout statistics. Returns paginated results with `pagination.total` (total matching records), `pagination.limit` (results per page), `pagination.skip` (offset from start), and `pagination.hasMore` (boolean indicating more results exist).",
       inputSchema: {
         type: z.string().optional().describe("Activity type filter (e.g., 'Run', 'Ride')"),
         sport_type: z.string().optional().describe("Sport type filter (e.g., 'Run', 'Ride', 'Swim', 'TrailRun', 'MountainBikeRide')"),
