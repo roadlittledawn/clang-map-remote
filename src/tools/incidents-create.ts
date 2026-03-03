@@ -17,6 +17,7 @@ export function registerCreateIncidentTool(server: McpServer): void {
         description: z.string().optional().describe("Description of the incident"),
         symptoms: z.array(z.string()).optional().describe("List of symptoms"),
         triggers: z.array(z.string()).optional().describe("Potential triggers"),
+        painLocations: z.array(z.string()).optional().describe("Affected body locations (e.g., ['lower back', 'left hip'])"),
       },
     },
     async (args) => {
@@ -32,6 +33,7 @@ export function registerCreateIncidentTool(server: McpServer): void {
             description: args.description,
             symptoms: args.symptoms,
             triggers: args.triggers,
+            painLocations: args.painLocations ?? [],
           },
         });
         return {
