@@ -1,5 +1,7 @@
 # Health Dashboard MCP Server
 
+[![CI](https://github.com/roadlittledawn/clang-map-remote/actions/workflows/ci.yml/badge.svg)](https://github.com/roadlittledawn/clang-map-remote/actions/workflows/ci.yml)
+
 A remote MCP (Model Context Protocol) server that provides AI clients access to your health dashboard APIs.
 
 ## Features
