@@ -7,12 +7,13 @@ export function registerQueryWorkoutsTool(server: McpServer): void {
     "query_workouts",
     {
       title: "Query Workouts",
-      description: "Query workout data from Strava with filtering options. Use this to find specific workouts, analyze training patterns, or get workout statistics. Returns paginated results with `pagination.total` (total matching records), `pagination.limit` (results per page), `pagination.skip` (offset from start), and `pagination.hasMore` (boolean indicating more results exist).",
+      description: "Query workout data from Strava with filtering options. Use this to find specific workouts, analyze training patterns, or get workout statistics. Returns paginated results with `pagination.total` (total matching records), `pagination.limit` (results per page), `pagination.skip` (offset from start), and `pagination.hasMore` (boolean indicating more results exist). Workout records may include geo location fields: `start_latlng` ([lat, lng]), `end_latlng` ([lat, lng]), and `map.summary_polyline` (encoded route polyline) when GPS data was available for the activity.",
       inputSchema: {
         type: z.string().optional().describe("Activity type filter (e.g., 'Run', 'Ride')"),
         sport_type: z.string().optional().describe("Sport type filter (e.g., 'Run', 'Ride', 'Swim', 'TrailRun', 'MountainBikeRide')"),
         start_date: z.string().optional().describe("Start of date range (ISO format, e.g., '2024-01-01')"),
         end_date: z.string().optional().describe("End of date range (ISO format, e.g., '2024-12-31')"),
+        has_geo: z.boolean().optional().describe("Filter by presence of geo/route data. true = only workouts with GPS route data, false = only workouts without"),
         limit: z.number().optional().default(20).describe("Maximum number of workouts to return (default: 20)"),
         skip: z.number().optional().default(0).describe("Number of workouts to skip for pagination"),
         sort_by: z.string().optional().default("start_date").describe("Field to sort by (default: 'start_date')"),
@@ -28,6 +29,7 @@ export function registerQueryWorkoutsTool(server: McpServer): void {
             sport_type: args.sport_type,
             start_date: args.start_date,
             end_date: args.end_date,
+            has_geo: args.has_geo !== undefined ? String(args.has_geo) : undefined,
             limit: args.limit,
             skip: args.skip,
             sort_by: args.sort_by,
